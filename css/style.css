@@ -259,41 +259,41 @@
 /* Button CSS */
 
 .btn-primary {
-    background-color: #e50914 !important;
-    border-color: #e50914 !important;
+    background-color: #04D4F0 !important;
+    border-color: #04D4F0 !important;
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #f40612 !important;
-    border-color: #f40612 !important;
+    background-color: #04D4F0 !important;
+    border-color: #04D4F0 !important;
 }
 
 .btn-primary:focus {
-    background-color: #f40612 !important;
-    border-color: #f40612 !important;
+    background-color: #04D4F0 !important;
+    border-color: #04D4F0 !important;
     box-shadow: 0 0 0 0.25rem rgb(244 6 18 / 50%) !important;
 }
 
 .btn-primary:active {
-    background-color: #bb0a12 !important;
-    border-color: #bb0a12 !important;
+    background-color: #04D4F0 !important;
+    border-color: #04D4F0 !important;
 }
 
 .btn-outline-primary {
     color: #fff !important;
-    border-color: #e50914 !important;
+    border-color: #04D4F0 !important;
 }
 
 .btn-outline-primary:hover {
-    color: #e50914 !important;
+    color: #04D4F0 !important;
     background-color: transparent !important;
-    border-color: #e50914 !important;
+    border-color: #04D4F0 !important;
 }
 
 .btn-outline-primary:active {
     background-color: transparent !important;
-    border-color: #e50914 !important;
+    border-color: #04D4F0 !important;
 }
 
 .btn-outline-primary:focus {
@@ -302,20 +302,20 @@
 
 .portfolio-hero-button.btn-outline-secondary {
     color: #fff !important;
-    border-color: #e50914 !important;
+    border-color: #04D4F0 !important;
 }
 
 .portfolio-hero-button.btn-outline-secondary:hover {
-    color: #e50914 !important;
+    color: #04D4F0 !important;
     /* background-color: rgb(229, 9, 20, 0.1) !important; */
     background-color: transparent;
-    border-color: #e50914 !important;
+    border-color: #04D4F0 !important;
     font-weight: 700;
 }
 
 .portfolio-hero-button.btn-outline-secondary:active {
     background-color: transparent !important;
-    border-color: #e50914 !important;
+    border-color: #04D4F0 !important;
 }
 
 .portfolio-hero-button.btn-outline-secondary:focus {
@@ -331,7 +331,7 @@
 }
 
 .portfolio-hero-social-link:hover {
-    color: #e50914 !important;
+    color: #04D4F0 !important;
 }
 
 .portfolio-hero-social-link .fas:hover, .fab:hover {
@@ -339,13 +339,13 @@
 }
 
 .portfolio-hero-social-link:focus {
-    color: #e50914 !important;
+    color: #04D4F0 !important;
 }
 
 /* Href CSS */
 
 a {
-    color: #e50914 !important;
+    color: #04D4F0 !important;
 }
 
 a:visited {
@@ -353,11 +353,11 @@ a:visited {
 }
 
 a:hover {
-    color: #f40612 !important;
+    color: #04D4F0 !important;
 }
 
 a:focus {
-    color: #f40612 !important;
+    color: #04D4F0 !important;
 }
 
 /* Nav Links */
@@ -377,17 +377,17 @@ a:focus {
 /* .nav-link.active {
     background-color: transparent !important;
     color: #fff !important;
-    border-bottom: 3px solid #e50914 !important;
+    border-bottom: 3px solid #04D4F0 !important;
     border-radius: 0% !important;
 } */
 
 .nav-link:hover {
-    /* border: 1px solid #e50914 !important; */
+    /* border: 1px solid #04D4F0 !important; */
     background-color: transparent !important;
-    /* color: #e50914 !important;
+    /* color: #04D4F0 !important;
     font-weight: 600 !important; */
     color: #fff !important;
-    border-bottom: 3px solid #e50914 !important;
+    border-bottom: 3px solid #04D4F0 !important;
     border-radius: 0% !important;
 }
 
@@ -429,7 +429,7 @@ body {
 }
 
 .portfolio-hero-subheading {
-    color: #e50914;
+    color: #04D4F0;
     font-weight: 700 !important;
 }
 
@@ -514,7 +514,7 @@ canvas {
 .fa-chevron-down {
     color: #fff !important;
     position: relative;
-    border: 3px solid #e50914;
+    border: 3px solid #04D4F0;
     border-radius: 50%;
     padding: 10px;
     margin-bottom: 20px;
@@ -705,7 +705,7 @@ html:not([data-scroll="0"]) #portfolio-float.float {
 }
 
 .portfolio-footer-social a:hover {
-    color: #e50914 !important;
+    color: #04D4F0 !important;
 }
 
 .fa-chevron-up:hover {

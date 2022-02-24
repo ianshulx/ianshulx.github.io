@@ -68,7 +68,7 @@
 }
 
 .services-hero-social-link:hover {
-    color: #e50914 !important;
+    color: #04D4F0 !important;
 }
 
 .services-hero-social-link .fas:hover, .fab:hover {
@@ -76,7 +76,7 @@
 }
 
 .portfolio-hero-social-link:focus {
-    color: #e50914 !important;
+    color: #04D4F0 !important;
 }
 
 #services-hero-links {
