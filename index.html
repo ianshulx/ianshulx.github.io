@@ -3,35 +3,657 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenNest</title>
+  <title>OpenNest — Code Belongs to All</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --bg: #0e1117;
+      --surface: #131920;
+      --border: #1e2a38;
+      --text: #e8e2d9;
+      --muted: #8a8f9a;
+
+      /* Logo accurate colors */
+      --gold: #FF9933;
+      --gold-light: #ddb48a;
+      --gold-glow: rgba(200, 151, 110, 0.14);
+      --green: #12d700;
+      --green-light: #6dcb88;
+      --green-glow: rgba(76, 175, 110, 0.12);
+
+      /* Tech stack colors */
+      --react: #61dafb;
+      --django: #44b78b;
+      --mern: #c8976e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .homemade-apple-regular {
+  font-family: "Homemade Apple", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+    html { scroll-behavior: smooth; }
+
     body {
-      margin: 0;
-      height: 100vh;
-      background-color: #0b0b0b;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200,151,110,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,151,110,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(14,17,23,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 54px;
+      width: auto;
+    }
+
+    .nav-logo-text {
+          font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo-text .open { color: var(--gold); }
+    .nav-logo-text .nest { color: var(--green); }
+
+    .nav-tagline {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: all 0.25s ease;
+      background: transparent;
+    }
+
+    .nav-pill:hover {
+      color: var(--text);
+      border-color: var(--gold);
+      background: var(--gold-glow);
+      transform: translateY(-1px);
+    }
+
+    .nav-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      font-family: 'Poppins', sans-serif;
-      color: #dcdcdc;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
     }
 
-    img {
-      width: 180px;
+    /* Dual glow: gold left, green right */
+    .hero-glow {
+      position: absolute;
+      top: 50%; left: 40%;
+      transform: translate(-50%, -60%);
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, rgba(200,151,110,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-glow-green {
+      position: absolute;
+      top: 50%; left: 60%;
+      transform: translate(-50%, -60%);
+      width: 460px; height: 460px;
+      background: radial-gradient(circle, rgba(76,175,110,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border: 1px solid rgba(200,151,110,0.3);
+      border-radius: 999px;
+      background: rgba(200,151,110,0.07);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .hero-logo {
+      width: 300px;
       height: auto;
-      margin-bottom: 15px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.7s ease 0.1s both;
+      filter: drop-shadow(0 0 24px rgba(200,151,110,0.28));
     }
 
-    p {
-      font-size: 1.1rem;
+    .hero-title {
+      font-family: "Press Start 2P", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin-bottom: 20px;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+
+    /* "Open" in gold, "Nest" in green — matching the logo exactly */
+    .hero-title .open { color: var(--gold); }
+    .hero-title .nest { color: var(--green); }
+
+    .hero-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 64px;
+      animation: fadeUp 0.7s ease 0.3s both;
+    }
+
+    .hero-cta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
       letter-spacing: 1px;
-      color: #a9a9a9;
+      animation: fadeUp 0.7s ease 0.5s both;
+    }
+
+    /* ── PROJECTS SECTION ── */
+    .projects {
+      position: relative;
+      z-index: 1;
+      padding: 0 48px 120px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      position: relative;
+      text-decoration: none;
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .card.react::before  { background: radial-gradient(circle at 30% 0%, rgba(97,218,251,0.1) 0%, transparent 60%); }
+    .card.django::before { background: radial-gradient(circle at 30% 0%, rgba(68,183,139,0.1) 0%, transparent 60%); }
+    .card.mern::before   { background: radial-gradient(circle at 30% 0%, rgba(200,151,110,0.1) 0%, transparent 60%); }
+
+    .card:hover::before { opacity: 1; }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+    }
+
+    .card.react:hover  { border-color: rgba(97,218,251,0.3);  box-shadow: 0 24px 48px rgba(97,218,251,0.08); }
+    .card.django:hover { border-color: rgba(68,183,139,0.3);  box-shadow: 0 24px 48px rgba(68,183,139,0.08); }
+    .card.mern:hover   { border-color: rgba(200,151,110,0.3); box-shadow: 0 24px 48px rgba(200,151,110,0.08); }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .card-icon {
+      width: 64px; height: 64px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-icon img {
+      width: 42px; height: 42px;
+      object-fit: contain;
+    }
+
+    .card-arrow {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.25s ease;
+      color: var(--muted);
+    }
+
+    .card:hover .card-arrow { transform: rotate(-45deg) scale(1.1); }
+
+    .card.react:hover  .card-arrow { border-color: var(--react);  color: var(--react);  background: rgba(97,218,251,0.08); }
+    .card.django:hover .card-arrow { border-color: var(--django); color: var(--django); background: rgba(68,183,139,0.08); }
+    .card.mern:hover   .card-arrow { border-color: var(--gold);   color: var(--gold);   background: rgba(200,151,110,0.08); }
+
+    .card-num {
+      position: absolute;
+      top: 20px; right: 60px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--border);
+      letter-spacing: 1px;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.5px;
+      border: 1px solid;
+      transition: all 0.2s ease;
+    }
+
+    .card.react  .tag { color: var(--react);  border-color: rgba(97,218,251,0.2);   background: rgba(97,218,251,0.05); }
+    .card.django .tag { color: var(--django); border-color: rgba(68,183,139,0.2);   background: rgba(68,183,139,0.05); }
+    .card.mern   .tag { color: var(--gold);   border-color: rgba(200,151,110,0.22); background: rgba(200,151,110,0.05); }
+
+    .card-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+
+    .card-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: gap 0.25s ease;
+    }
+
+    .card.react  .card-cta { color: var(--react); }
+    .card.django .card-cta { color: var(--green); }
+    .card.mern   .card-cta { color: var(--gold); }
+
+    .card:hover .card-cta { gap: 12px; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .footer-left .open { color: var(--gold); }
+    .footer-left .nest { color: var(--green); }
+
+    .footer-right {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--border);
+      letter-spacing: 1px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 48px;
+      animation: fadeUp 0.7s ease 0.6s both;
+    }
+
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--gold), var(--green));
+      animation: scrollAnim 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollAnim {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .projects { padding: 0 24px 80px; }
+      .cards-grid { grid-template-columns: 1fr; gap: 16px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { letter-spacing: -1.5px; }
     }
   </style>
 </head>
 <body>
-  <img src="OpenNest.png" alt="OpenNest Logo">
-  <p>Code Belongs to all.</p>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="OpenNest.png" alt="OpenNest">
+      <div>
+        <div class="nav-logo-text"><span class="open">Open</span><span class="nest">Nest</span></div>
+        <div class="nav-tagline">Open Source</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="http://www.opennest.online/React-projects-for-beginners/" class="nav-pill" target="_blank">
+        <span class="dot" style="background: var(--react);"></span>
+        React Projects
+      </a>
+      <a href="https://www.opennest.online/Django-Projects-for-beginners/" class="nav-pill" target="_blank">
+        <span class="dot" style="background: var(--django);"></span>
+        Django Projects
+      </a>
+      <a href="https://www.opennest.online/MERN-projects-for-beginners/" class="nav-pill" target="_blank">
+        <span class="dot" style="background: var(--gold);"></span>
+        MERN Projects
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow-green"></div>
+    <div class="hero-badge">Open Source Platform</div>
+    <img src="OpenNest.png" alt="OpenNest Logo" class="hero-logo">
+    <h1 class="hero-title"><span class="open">Open</span><span class="nest">Nest</span></h1>
+    <p class="hero-sub">Code Belongs to All</p>
+    <p class="hero-cta">↓ &nbsp; Explore Our Open Source projects &nbsp; ↓</p>
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="section-label">Project Collections</div>
+
+    <div class="cards-grid">
+
+      <!-- REACT -->
+      <a href="http://www.opennest.online/React-projects-for-beginners/" class="card react" target="_blank">
+        <span class="card-num">01</span>
+        <div class="card-top">
+          <div class="card-icon">
+            <img src="react.png" alt="React">
+          </div>
+          <div class="card-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="card-title">React Projects</h2>
+        <p class="card-desc">Beginner-friendly React projects to help you learn component-based UI development with hands-on practice.</p>
+        <div class="card-tags">
+          <span class="tag">JSX</span>
+          <span class="tag">Hooks</span>
+          <span class="tag">Components</span>
+          <span class="tag">State</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-cta">
+          Explore Projects
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- DJANGO -->
+      <a href="https://www.opennest.online/Django-Projects-for-beginners/" class="card django" target="_blank">
+        <span class="card-num">02</span>
+        <div class="card-top">
+          <div class="card-icon">
+            <img src="django.png" alt="Django">
+          </div>
+          <div class="card-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="card-title">Django Projects</h2>
+        <p class="card-desc">Build full-stack Python web apps with Django. Perfect for beginners exploring backend development and databases.</p>
+        <div class="card-tags">
+          <span class="tag">Python</span>
+          <span class="tag">ORM</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Admin</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-cta">
+          Explore Projects
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- MERN -->
+      <a href="https://www.opennest.online/MERN-projects-for-beginners/" class="card mern" target="_blank">
+        <span class="card-num">03</span>
+        <div class="card-top">
+          <div class="card-icon">
+            <img src="mern.png" alt="MERN">
+          </div>
+          <div class="card-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="card-title">MERN Projects</h2>
+        <p class="card-desc">Full-stack JavaScript projects using MongoDB, Express, React & Node. From zero to production-ready apps.</p>
+        <div class="card-tags">
+          <span class="tag">MongoDB</span>
+          <span class="tag">Express</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Full Stack</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-cta">
+          Explore Projects
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      © 2025 <span class="open">Open</span><span class="nest">Nest</span> — Code Belongs to All
+    </div>
+    <div class="footer-right">
+      opennest.online
+    </div>
+  </footer>
+
 </body>
 </html>
